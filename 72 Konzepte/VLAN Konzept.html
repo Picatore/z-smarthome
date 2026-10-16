@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VLAN Konzept – Obsidian-zirkelbach_ORG</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script>window.ROOT="../";window.CURRENT="72 Konzepte/VLAN Konzept.html";</script>
+</head><body>
+<header class="topbar"><button id="menu-btn" aria-label="Navigation">☰</button><a class="home" href="../index.html">Obsidian-zirkelbach_ORG</a>
+<div class="search"><input id="search" type="search" placeholder="Suchen …" autocomplete="off"><div id="results"></div></div></header>
+<div class="layout"><nav id="sidebar"></nav>
+<main><div class="breadcrumb">72 Konzepte</div><h1 class="page-title" data-heading="VLAN Konzept" dir="auto" id="vlan-konzept">VLAN Konzept</h1><details class="properties" open><summary>Eigenschaften</summary><table><tr><th>typ</th><td>docu</td></tr><tr><th>name</th><td>VLAN Konzept</td></tr><tr><th>notizen</th><td></td></tr></table></details>
+<div class="markdown-rendered"><p dir="auto">Das Netzwerk wird in getrennte VLANs aufgeteilt, damit Gäste, Büro und Haustechnik sich nicht gegenseitig erreichen können. Die einzelnen VLANs und WLANs liegen in <code>32 Netzwerk/VLAN</code> und <code>32 Netzwerk/WLAN</code>. Die Firewall-Regeln stehen jeweils im Abschnitt <strong>Zugriffsregeln</strong> der VLAN-Notiz.</p>
+<h2 data-heading="Übersicht" dir="auto" id="übersicht">Übersicht</h2>
+<table>
+<thead>
+<tr>
+<th>VLAN</th>
+<th>ID</th>
+<th>Subnetz</th>
+<th>Zweck</th>
+<th>WLAN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../32%20Netzwerk/VLAN/VLAN10_Buero.html" class="internal-link">Büro</a></td>
+<td>10</td>
+<td>192.168.10.0/24</td>
+<td>Arbeitsplätze, Drucker, NAS</td>
+<td><a href="../32%20Netzwerk/WLAN/WLAN_Buero.html" class="internal-link">Zirkelbach</a></td>
+</tr>
+<tr>
+<td><a href="../32%20Netzwerk/VLAN/VLAN20_Installation.html" class="internal-link">Installation</a></td>
+<td>20</td>
+<td>192.168.20.0/24</td>
+<td>Loxone, Heizung, PV, Wallbox, Lüftung</td>
+<td><a href="../32%20Netzwerk/WLAN/WLAN_Installation.html" class="internal-link">Zirkelbach-Technik</a> (versteckt, nur 2,4 GHz)</td>
+</tr>
+<tr>
+<td><a href="../32%20Netzwerk/VLAN/VLAN30_Gast.html" class="internal-link">Gast</a></td>
+<td>30</td>
+<td>192.168.30.0/24</td>
+<td>Nur Internet</td>
+<td><a href="../32%20Netzwerk/WLAN/WLAN_Gast.html" class="internal-link">Zirkelbach-Gast</a></td>
+</tr>
+</tbody>
+</table>
+<p dir="auto">Die IP-Adressen, die bisher in einzelnen Geräte-Notizen stehen (192.168.1.x), sind nur Testwerte und werden später nach diesem Schema vergeben.</p>
+<h2 data-heading="WLAN und Access Points" dir="auto" id="wlan-und-access-points">WLAN und Access Points</h2>
+<p dir="auto">Eine WLAN-Notiz steht für eine SSID (einen Netzwerknamen), nicht für ein Gerät. Die beiden Access Points (<a href="../20%20Endpunkte/Netzwerk/WLAN-TR-01.html" class="internal-link">WLAN-TR-01</a>, <a href="../20%20Endpunkte/Netzwerk/WLAN-FL-02.html" class="internal-link">WLAN-FL-02</a>) sind Endpunkte und strahlen alle SSIDs aus. Welche SSID von welchem Access Point kommt, steht im Feld <code>access_points</code> der WLAN-Notiz. Jede SSID ist genau einem VLAN zugeordnet.</p>
+<h2 data-heading="Wie der Zugriff zwischen VLANs funktioniert" dir="auto" id="wie-der-zugriff-zwischen-vlans-funktioniert">Wie der Zugriff zwischen VLANs funktioniert</h2>
+<p dir="auto">VLANs sind nicht komplett voneinander abgeschottet. Das Gateway bzw. der Router (bei UniFi z. B. ein Cloud Gateway) leitet den Verkehr zwischen den VLANs weiter, und die Firewall legt fest, was erlaubt ist.</p>
+<ul>
+<li dir="auto">Grundsatz: <strong>Alles zwischen den VLANs ist gesperrt</strong>, nur einzelne Verbindungen werden gezielt freigegeben.</li>
+<li dir="auto">Die Firewall arbeitet zustandsbehaftet. Wenn das Büro eine Verbindung ins Installations-VLAN aufbauen darf, kommen die Antworten automatisch zurück. Das Installations-VLAN selbst darf trotzdem keine Verbindungen ins Büro aufbauen.</li>
+<li dir="auto">In UniFi ist jede Freigabe eine Regel aus Quelle, Ziel, Port und Aktion. Bei der neueren Firewall mit Zonen wird sie zwischen den beiden Zonen eingetragen.</li>
+</ul>
+<h2 data-heading="Loxone-App im Büro" dir="auto" id="loxone-app-im-büro">Loxone-App im Büro</h2>
+<p dir="auto">Der Miniserver läuft im Installations-VLAN. Damit die Mitarbeiter ihn im Büro-WLAN mit der Loxone-App bedienen können:</p>
+<ol>
+<li dir="auto"><strong>Feste IP für den Miniserver</strong> per DHCP-Reservierung oder statisch, z. B. 192.168.20.10. Die Firewall-Regel zeigt auf genau diese Adresse.</li>
+<li dir="auto"><strong>Firewall-Regel:</strong> Büro (VLAN 10) → Miniserver-IP, Ports <strong>80 und 443</strong> (HTTP/HTTPS, darüber laufen App und Webinterface): erlauben.</li>
+<li dir="auto"><strong>Adresse in der App von Hand eintragen:</strong> Die automatische Suche der Loxone-App arbeitet mit Broadcasts, und die kommen nicht über VLAN-Grenzen. Pro Handy trägt man die IP einmal manuell ein.</li>
+<li dir="auto"><strong>Unterwegs:</strong> Über Loxone Remote Connect (Cloud) erreicht die App den Miniserver auch über das Mobilfunknetz, unabhängig vom VLAN. Die App wechselt automatisch zwischen der lokalen Adresse und dem Fernzugriff.</li>
+<li dir="auto"><strong>Gäste:</strong> Es gibt bewusst keine Regel von VLAN 30 nach VLAN 20.</li>
+</ol>
+<ul class="contains-task-list">
+<li data-task="" class="task-list-item" dir="auto"><input type="checkbox" class="task-list-item-checkbox" disabled=""><span class="tag">#check</span> Sind private Handys der Mitarbeiter im Büro-WLAN? Dann haben sie Zugriff auf alles, was dort freigegeben ist (auch das NAS). Wenn nur die Loxone-App gebraucht wird, reicht eventuell Remote Connect über Gast-WLAN oder Mobilfunk.</li>
+<li data-task="" class="task-list-item" dir="auto"><input type="checkbox" class="task-list-item-checkbox" disabled=""><span class="tag">#check</span> Weitere Loxone-Komponenten (Intercom-Video-Sprechstelle, Audioserver) brauchen eventuell zusätzliche Ports. Die genauen Ports stehen in der Loxone-Doku zur jeweiligen Komponente.</li>
+</ul>
+<h2 data-heading="Smarte Hausgeräte (Backofen, Geschirrspüler)" dir="auto" id="smarte-hausgeräte-backofen-geschirrspüler">Smarte Hausgeräte (Backofen, Geschirrspüler)</h2>
+<p dir="auto">Diese Geräte brauchen dauerhaft eine Verbindung zur Hersteller-Cloud (z. B. Miele@home) und sind deshalb weniger vertrauenswürdig als die eigentliche Haustechnik.</p>
+<ul class="contains-task-list">
+<li dir="auto">
+<p><strong>Variante 1 (empfohlen):</strong> eigenes IoT-VLAN (z. B. VLAN 40) mit eigener SSID. Wird ein Cloud-Gerät angegriffen, kommt der Angreifer nicht an Loxone, Heizung und PV heran. Der Mehraufwand ist nur eine weitere SSID.</p>
+</li>
+<li dir="auto">
+<p><strong>Variante 2:</strong> mit ins Installations-VLAN. Das ist einfacher, aber dann braucht das ganze VLAN offenen Internetzugang.</p>
+</li>
+<li data-task="" class="task-list-item" dir="auto">
+<p><input type="checkbox" class="task-list-item-checkbox" disabled=""><span class="tag">#check</span> Entscheidung IoT-VLAN für smarte Hausgeräte</p>
+</li>
+</ul>
+<h2 data-heading="Switch und VLANs" dir="auto" id="switch-und-vlans">Switch und VLANs</h2>
+<p dir="auto">Ein reines Patchpanel ist passiv und kennt keine VLANs. Die VLANs werden im Switch (geplant: USW-24-PoE) eingetragen, Feld <code>vlans</code> in der Hub-Notiz. Erst dann zeigen die VLAN-Notizen unter „Hubs/Switches“ etwas an.</p></div><section class="backlinks"><h2>Verlinkt von (3)</h2><ul><li><a href="../32%20Netzwerk/VLAN/VLAN10_Buero.html">VLAN10_Buero</a></li><li><a href="../32%20Netzwerk/VLAN/VLAN20_Installation.html">VLAN20_Installation</a></li><li><a href="../32%20Netzwerk/VLAN/VLAN30_Gast.html">VLAN30_Gast</a></li></ul></section></main></div>
+<script src="../assets/data.js"></script><script src="../assets/app.js"></script>
+</body></html>

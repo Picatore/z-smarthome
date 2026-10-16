@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VLAN10_Buero – Obsidian-zirkelbach_ORG</title>
+<link rel="stylesheet" href="../../assets/style.css">
+<script>window.ROOT="../../";window.CURRENT="32 Netzwerk/VLAN/VLAN10_Buero.html";</script>
+</head><body>
+<header class="topbar"><button id="menu-btn" aria-label="Navigation">☰</button><a class="home" href="../../index.html">Obsidian-zirkelbach_ORG</a>
+<div class="search"><input id="search" type="search" placeholder="Suchen …" autocomplete="off"><div id="results"></div></div></header>
+<div class="layout"><nav id="sidebar"></nav>
+<main><div class="breadcrumb">32 Netzwerk/VLAN</div><h1 class="page-title" data-heading="VLAN 10 Büro" dir="auto" id="vlan-10-büro">VLAN 10 Büro</h1><details class="properties" open><summary>Eigenschaften</summary><table><tr><th>typ</th><td>vlan</td></tr><tr><th>name</th><td>Büro</td></tr><tr><th>vlan_id</th><td>10</td></tr><tr><th>subnetz</th><td>192.168.10.0/24</td></tr><tr><th>zweck</th><td>Arbeitsplätze, Drucker, NAS - vertrauenswürdige Geräte der Mitarbeiter</td></tr><tr><th>raum</th><td></td></tr><tr><th>status</th><td>geplant</td></tr><tr><th>notizen</th><td></td></tr></table></details>
+<div class="markdown-rendered"><p dir="auto">Darf auf das Installations-VLAN (z. B. Loxone-App, PV-Monitoring) zugreifen, nicht umgekehrt.</p>
+<h2 data-heading="Zugriffsregeln" dir="auto" id="zugriffsregeln">Zugriffsregeln</h2>
+<p dir="auto">Grundsatz und Erklärung: <a href="../../72%20Konzepte/VLAN%20Konzept.html" class="internal-link">VLAN Konzept</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Richtung</th>
+<th>Ziel</th>
+<th>Ports</th>
+<th>Aktion</th>
+<th>Zweck</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Büro → Installation</td>
+<td>Miniserver (z. B. 192.168.20.10)</td>
+<td>80, 443</td>
+<td>erlauben</td>
+<td>Loxone-App und Webinterface</td>
+</tr>
+<tr>
+<td>Büro → Installation</td>
+<td>alles andere</td>
+<td>alle</td>
+<td>sperren</td>
+<td></td>
+</tr>
+<tr>
+<td>Büro → Gast</td>
+<td>alles</td>
+<td>alle</td>
+<td>sperren</td>
+<td></td>
+</tr>
+<tr>
+<td>Büro → Internet</td>
+<td>alles</td>
+<td>alle</td>
+<td>erlauben</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 data-heading="Hubs/Switches, die dieses VLAN führen" dir="auto" id="hubs-switches-die-dieses-vlan-führen">Hubs/Switches, die dieses VLAN führen</h2>
+<div class="block-language-dataview node-insert-event" style="overflow-x: auto;"><table class="dataview table-view-table"><thead class="table-view-thead"><tr class="table-view-tr-header"><th class="table-view-th"><span>File</span><span class="dataview small-text">0</span></th><th class="table-view-th"><span>Typ</span></th><th class="table-view-th"><span>Standort</span></th><th class="table-view-th"><span>Status</span></th></tr></thead><tbody class="table-view-tbody"></tbody></table><div class="dataview dataview-error-box"><p class="dataview dataview-error-message">Dataview: No results to show for table query.</p></div></div>
+<h2 data-heading="WLANs in diesem VLAN" dir="auto" id="wlans-in-diesem-vlan">WLANs in diesem VLAN</h2>
+<div class="block-language-dataview node-insert-event" style="overflow-x: auto;"><table class="dataview table-view-table"><thead class="table-view-thead"><tr class="table-view-tr-header"><th class="table-view-th"><span>File</span><span class="dataview small-text">1</span></th><th class="table-view-th"><span>Band</span></th><th class="table-view-th"><span>Status</span></th></tr></thead><tbody class="table-view-tbody"><tr><td><span><a href="../../32%20Netzwerk/WLAN/WLAN_Buero.html" class="internal-link">WLAN_Buero</a></span></td><td><span>2,4 + 5 GHz</span></td><td><span>geplant</span></td></tr></tbody></table></div></div><section class="backlinks"><h2>Verlinkt von (2)</h2><ul><li><a href="../../32%20Netzwerk/WLAN/WLAN_Buero.html">WLAN_Buero</a></li><li><a href="../../72%20Konzepte/VLAN%20Konzept.html">VLAN Konzept</a></li></ul></section></main></div>
+<script src="../../assets/data.js"></script><script src="../../assets/app.js"></script>
+</body></html>

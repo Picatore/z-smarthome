@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planung Netzwerk – Obsidian-zirkelbach_ORG</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script>window.ROOT="../";window.CURRENT="70 Planung/Planung Netzwerk.html";</script>
+</head><body>
+<header class="topbar"><button id="menu-btn" aria-label="Navigation">☰</button><a class="home" href="../index.html">Obsidian-zirkelbach_ORG</a>
+<div class="search"><input id="search" type="search" placeholder="Suchen …" autocomplete="off"><div id="results"></div></div></header>
+<div class="layout"><nav id="sidebar"></nav>
+<main><div class="breadcrumb">70 Planung</div><h1 class="page-title">Planung Netzwerk</h1><details class="properties" open><summary>Eigenschaften</summary><table><tr><th>typ</th><td>planungspunkt</td></tr><tr><th>name</th><td>Netzwerkplanung</td></tr><tr><th>raum</th><td><a href="../10%20Raeume/13%20Technikraum%20(TR).html">Technikraum (TR)</a></td></tr><tr><th>status</th><td>offen</td></tr><tr><th>notizen</th><td></td></tr></table></details>
+<div class="markdown-rendered"><ul class="contains-task-list">
+<li data-task="" class="task-list-item" dir="auto">
+<p><input type="checkbox" class="task-list-item-checkbox" disabled=""><span class="tag">#check</span> welches Netzwerk? VLANs? UniFi?</p>
+</li>
+<li data-task="" class="task-list-item" dir="auto">
+<p><input type="checkbox" class="task-list-item-checkbox" disabled=""><span class="tag">#check</span> WLAN Repeater</p>
+</li>
+<li data-task="" class="task-list-item" dir="auto">
+<p><input type="checkbox" class="task-list-item-checkbox" disabled="">WLAN Acess Points, wieviele <span class="tag">#check</span></p>
+</li>
+</ul>
+<h2 data-heading="UniFi-Netzwerkinfrastruktur – Neubau Bürogebäude" dir="auto" id="unifi-netzwerkinfrastruktur-neubau-bürogebäude">UniFi-Netzwerkinfrastruktur – Neubau Bürogebäude</h2>
+<p dir="auto"><strong>Grundkonzept:</strong> Das neue Bürogebäude (ca. 200 m², EG, Leichtbau-Zwischenwände) wird als eigenständiger, autarker Standort mit eigenem Stromanschluss und eigenem DSL-Internetanschluss betrieben – unabhängig vom Netzwerk der bestehenden Hallen/Hauptgebäude (dort weiterhin FritzBox im Einsatz). Eine spätere Kopplung beider Standorte über eine Glasfaserstrecke (Entfernung 50–100 m) ist als Option offengehalten, aktuell aber nicht umgesetzt.</p>
+<p dir="auto"><strong>Internetanbindung:</strong> DSL-Anschluss. Da UniFi-Gateways kein eigenes DSL-Modem besitzen, wird ein vorgeschaltetes Modem benötigt (z. B. DrayTek Vigor 167, alternativ eine vorhandene FritzBox im Bridge-/IP-Modus). Die PPPoE-Zugangsdaten des Providers werden direkt am UniFi-Gateway hinterlegt.</p>
+<p dir="auto"><strong>Kernkomponenten:</strong></p>
+<ul>
+<li dir="auto"><strong>Gateway/Controller:</strong> UniFi Cloud Gateway Ultra (UCG-Ultra) – bzw. Cloud Gateway Max, falls Kamera-Videospeicher (NVR) direkt am Gateway laufen soll</li>
+<li dir="auto"><strong>Switch:</strong> USW-24-PoE (managed, 24 Port PoE) im zentralen Technikraum</li>
+<li dir="auto"><strong>WLAN:</strong> 2× UniFi U7 Lite (WiFi 7), zentral an der Decke montiert; für 200 m² mit Leichtbauwänden ausreichend, ggf. 3. AP als Kapazitätsreserve</li>
+<li dir="auto"><strong>Kameras (UniFi Protect):</strong> G6 Bullet (außen, Eingang/Zufahrt), G6 Dome (innen, Flur/Empfang), optional G6 Instant (kabellos, WLAN + Steckdose statt Cat6a) für Positionen ohne vorhandene Netzwerkdose</li>
+</ul>
+<p dir="auto"><strong>Verkabelung:</strong> Durchgängig sternförmige Cat6a-Verkabelung – jede Dose/jedes Gerät (Büros, Access Points, Kameras, Loxone Miniserver) erhält ein eigenes, durchgehendes Kabel zurück zum Patchpanel im Technikraum, keine Kettenverkabelung. Pro Büro sind 2 Doppeldosen (4 Anschlüsse) vorgesehen. Außenkameras benötigen eine wasserdicht abgedichtete Wanddurchführung.</p>
+<p dir="auto"><strong>VLAN-Konzept (Vorschlag):</strong></p>
+<table>
+<thead>
+<tr>
+<th>VLAN</th>
+<th>Name</th>
+<th>Subnetz</th>
+<th>Zweck</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Büro – Hauptgebäude/Bestandshallen</td>
+<td>10.0.10.0/24</td>
+<td>PCs, Drucker, interner Verkehr</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Büro – neues Gebäude</td>
+<td>10.0.11.0/24</td>
+<td>PCs, Drucker, interner Verkehr</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Gäste-WLAN</td>
+<td>10.0.20.0/24</td>
+<td>Besucher-Internet, isoliert</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Kameras (UniFi Protect)</td>
+<td>10.0.30.0/24</td>
+<td>Alle Kameras, isoliert vom Büro</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Loxone/Smart-Home (inkl. PV, Wallbox, Heizung)</td>
+<td>10.0.40.0/24</td>
+<td>Miniserver, Türstation, Relais, Haustechnik</td>
+</tr>
+<tr>
+<td>99</td>
+<td>Management</td>
+<td>10.0.99.0/24</td>
+<td>Nur UniFi-Geräteverwaltung</td>
+</tr>
+</tbody>
+</table>
+<p dir="auto">Zugriff vom Büro-VLAN auf einzelne Geräte im Technik-VLAN (z. B. Loxone-App aufs Handy) erfolgt über gezielte Firewall-Regeln (Ziel = einzelne IP, nicht das gesamte VLAN), nicht über einen VLAN-Wechsel des Endgeräts. Für Personen mit vollem Technik-Zugriff (z. B. Haustechniker) ist eine Ausnahme-Regel per fester IP-Adresse vorgesehen.</p>
+<p dir="auto"><strong>AV-/Präsentationstechnik (Beamer):</strong> Beamerlift und motorisierte Leinwand in der Zwischendecke, Steuerung über Loxone-Relaisausgänge. Bildzuspielung vom Tisch über HDBaseT (Cat6a-Strecke, Sender in Tisch-/Medienbox, Empfänger am Beamer). AirPlay-Wiedergabe über ein zusätzliches Apple TV direkt am Beamer (eigene Strom- und Netzwerkdose), da native AirPlay-Unterstützung bei Beamern noch selten ist. Beamer-Auswahlkriterium: mindestens 2 HDMI-Eingänge, um Tisch-Zuspielung und Apple TV gleichzeitig ohne Umstecken zu betreiben.</p>
+<p dir="auto"><strong>Zuständigkeiten:</strong> Elektroinstallation und Kabelverlegung durch einen Elektromeister; Loxone-Konfiguration in Eigenregie, zusätzlich geprüft durch einen Loxone-Partner (Komponentenauswahl, Vollständigkeit). Die langfristige Pflege/Wartung des UniFi-Netzwerks (Updates, Monitoring) ist noch nicht final zugewiesen (intern vs. externer IT-Dienstleister).</p></div></main></div>
+<script src="../assets/data.js"></script><script src="../assets/app.js"></script>
+</body></html>

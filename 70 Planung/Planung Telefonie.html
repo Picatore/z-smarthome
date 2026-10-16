@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planung Telefonie – Obsidian-zirkelbach_ORG</title>
+<link rel="stylesheet" href="../assets/style.css">
+<script>window.ROOT="../";window.CURRENT="70 Planung/Planung Telefonie.html";</script>
+</head><body>
+<header class="topbar"><button id="menu-btn" aria-label="Navigation">☰</button><a class="home" href="../index.html">Obsidian-zirkelbach_ORG</a>
+<div class="search"><input id="search" type="search" placeholder="Suchen …" autocomplete="off"><div id="results"></div></div></header>
+<div class="layout"><nav id="sidebar"></nav>
+<main><div class="breadcrumb">70 Planung</div><h1 class="page-title">Planung Telefonie</h1><details class="properties" open><summary>Eigenschaften</summary><table><tr><th>typ</th><td>planungspunkt</td></tr><tr><th>name</th><td>Telefone</td></tr><tr><th>raum</th><td></td></tr><tr><th>status</th><td>offen</td></tr><tr><th>notizen</th><td>Noch unklar, ob/wo klassische Telefonanschlüsse oder Telefone benötigt werden (vs. reine Mobil-/VoIP-Nutzung). Muss noch entschieden werden.</td></tr></table></details>
+<div class="markdown-rendered"><p dir="auto">Telefonie über LAN, wie im Hauptgebäude</p>
+<p dir="auto">Für die Telefonie in so einem Neubau lohnt sich der Blick auf euer bereits gewähltes UniFi-Ökosystem, weil es da eine passende native Option gibt, aber auch die klassischen Cloud-Telefonanlagen-Anbieter sind für einen Handwerksbetrieb gut geeignet. Klassische ISDN-/Analoganschlüsse gibt es in Deutschland ohnehin praktisch nicht mehr – es läuft heute durchgängig über VoIP/SIP über euren Internetanschluss.</p>
+<p dir="auto"><strong>Option 1: UniFi Talk (passt zu eurer bestehenden UniFi-Ausstattung)</strong><br>
+Da ihr schon UCG-Ultra, Switch und Access Points von Ubiquiti habt, lässt sich mit UniFi Talk die komplette Telefonie in derselben UniFi-Network-App verwalten – ein Admin-Interface für Netzwerk und Telefonie zusammen, was zu eurem DIY-Ansatz passt. Es gibt eigene UniFi-Telefone (G3 Touch Enterprise/Wall/Pro, dazu drahtlose Zusatz-Mobilteile), interne Anrufe zwischen diesen Geräten sind über die UniFi OS Console kostenlos, für externe Rufnummern braucht ihr einen SIP-Trunk eines Anbieters. Wichtig zu wissen: UniFi Talk ist offiziell vor allem für USA/Kanada/UK ausgepreist – in Deutschland gibt es zwar funktionierende Community-Konfigurationen mit der Telekom (DeutschlandLAN SIP-Trunk) und easybell, aber das ist etwas fummeliger und weniger poliert als bei den etablierten deutschen Anbietern, ihr solltet also etwas Einarbeitungszeit einplanen.</p>
+<p dir="auto"><strong>Option 2: Klassische Cloud-Telefonanlage (unabhängig vom Netzwerk-Hersteller)</strong><br>
+Das ist der ausgereiftere, in Deutschland besser dokumentierte Weg, gerade zugeschnitten auf Handwerksbetriebe mit ihrem Bedarf an Mobilität (Mitarbeiter oft auf Baustellen unterwegs, Erreichbarkeit über Smartphone-App wichtiger als am Schreibtisch):</p>
+<ul>
+<li dir="auto">easybell: Komplettpaket aus Internet + Telefonie + Cloud-Anlage, ca. 30–40 €/Monat</li>
+<li dir="auto">sipgate team: ca. 13 €/Nutzer/Monat, mit guter Mobilfunk-/App-Anbindung</li>
+<li dir="auto">fonial: ab ca. 4 €/Rufnummer/Monat, gut bei geringem Anrufaufkommen</li>
+<li dir="auto">Placetel: ab ca. 7 €/Nutzer/Monat, mit CRM-Anbindungsmöglichkeiten</li>
+</ul>
+<p dir="auto">Diese laufen komplett unabhängig von UniFi über euer normales Netzwerk und DSL, ohne dass ihr euch auf UniFis (in Deutschland weniger ausgereifte) Telefonielösung verlassen müsst.</p>
+<p dir="auto"><strong>Zur Hardware:</strong> Ihr braucht nicht zwingend klassische Tischtelefone – viele Handwerksbetriebe nutzen heute nur Smartphone-Apps der jeweiligen Cloud-PBX, ergänzt um vielleicht 1–2 SIP-Tischtelefone (Yealink, Snom, Gigaset) an den Büro-Arbeitsplätzen, die tatsächlich immer besetzt sind.</p>
+<p dir="auto"><strong>Verbindung zur Türstation:</strong> Da ihr schon eine Loxone-Türstation plant – die spricht SIP und lässt sich bei beiden Wegen direkt als SIP-Teilnehmer einbinden, sodass ein Klingeln an der Tür wahlweise auf Diensthandys oder Tischtelefone durchgestellt werden kann, unabhängig davon, für welche der beiden Optionen ihr euch entscheidet.</p>
+<p dir="auto">Für euren Fall (kein zentraler Server geplant, DIY-Ansatz, Mitarbeiter oft unterwegs) würde ich eher zur etablierten Cloud-Telefonanlage (sipgate oder easybell) raten – reibungsloser Support, gute App, und ihr seid nicht von einer in Deutschland noch etwas unrunden UniFi-Telefonie-Lösung abhängig.</p>
+<p dir="auto">Sources:</p>
+<ul>
+<li dir="auto"><a data-tooltip-position="top" aria-label="https://www.telefonanlagen-anbieter.de/telefonanlage-fuer-handwerksbetriebe-einfach-mobil-guenstig/" rel="noopener nofollow" class="external-link" href="https://www.telefonanlagen-anbieter.de/telefonanlage-fuer-handwerksbetriebe-einfach-mobil-guenstig/" target="_blank">Telefonanlage für Handwerksbetriebe – einfach, mobil, günstig</a></li>
+<li dir="auto"><a data-tooltip-position="top" aria-label="https://ui.com/eu/de/integrations/managed-voip" rel="noopener nofollow" class="external-link" href="https://ui.com/eu/de/integrations/managed-voip" target="_blank">UniFi Managed VoIP – Ubiquiti</a></li>
+<li dir="auto"><a data-tooltip-position="top" aria-label="https://telekomhilft.telekom.de/conversations/festnetz-internet/konfiguration-unifi-talk-deutschlandlan-sip-anschluss/66bbd27b389f9f597b1f8ba1" rel="noopener nofollow" class="external-link" href="https://telekomhilft.telekom.de/conversations/festnetz-internet/konfiguration-unifi-talk-deutschlandlan-sip-anschluss/66bbd27b389f9f597b1f8ba1" target="_blank">Konfiguration UniFi Talk – DeutschlandLAN SIP Anschluss – Telekom hilft Community</a></li>
+</ul></div></main></div>
+<script src="../assets/data.js"></script><script src="../assets/app.js"></script>
+</body></html>
