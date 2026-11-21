@@ -22,31 +22,31 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="../32%20Netzwerk/VLAN/VLAN10_Buero.html" class="internal-link">Büro</a></td>
+<td><a class="internal-link" href="../32%20Netzwerk/VLAN/VLAN10_Buero.html">Büro</a></td>
 <td>10</td>
 <td>192.168.10.0/24</td>
 <td>Arbeitsplätze, Drucker, NAS</td>
-<td><a href="../32%20Netzwerk/WLAN/WLAN_Buero.html" class="internal-link">Zirkelbach</a></td>
+<td><a class="internal-link" href="../32%20Netzwerk/WLAN/WLAN_Buero.html">Zirkelbach</a></td>
 </tr>
 <tr>
-<td><a href="../32%20Netzwerk/VLAN/VLAN20_Installation.html" class="internal-link">Installation</a></td>
+<td><a class="internal-link" href="../32%20Netzwerk/VLAN/VLAN20_Installation.html">Installation</a></td>
 <td>20</td>
 <td>192.168.20.0/24</td>
 <td>Loxone, Heizung, PV, Wallbox, Lüftung</td>
-<td><a href="../32%20Netzwerk/WLAN/WLAN_Installation.html" class="internal-link">Zirkelbach-Technik</a> (versteckt, nur 2,4 GHz)</td>
+<td><a class="internal-link" href="../32%20Netzwerk/WLAN/WLAN_Installation.html">Zirkelbach-Technik</a> (versteckt, nur 2,4 GHz)</td>
 </tr>
 <tr>
-<td><a href="../32%20Netzwerk/VLAN/VLAN30_Gast.html" class="internal-link">Gast</a></td>
+<td><a class="internal-link" href="../32%20Netzwerk/VLAN/VLAN30_Gast.html">Gast</a></td>
 <td>30</td>
 <td>192.168.30.0/24</td>
 <td>Nur Internet</td>
-<td><a href="../32%20Netzwerk/WLAN/WLAN_Gast.html" class="internal-link">Zirkelbach-Gast</a></td>
+<td><a class="internal-link" href="../32%20Netzwerk/WLAN/WLAN_Gast.html">Zirkelbach-Gast</a></td>
 </tr>
 </tbody>
 </table>
 <p dir="auto">Die IP-Adressen, die bisher in einzelnen Geräte-Notizen stehen (192.168.1.x), sind nur Testwerte und werden später nach diesem Schema vergeben.</p>
 <h2 data-heading="WLAN und Access Points" dir="auto" id="wlan-und-access-points">WLAN und Access Points</h2>
-<p dir="auto">Eine WLAN-Notiz steht für eine SSID (einen Netzwerknamen), nicht für ein Gerät. Die beiden Access Points (<a href="../20%20Endpunkte/Netzwerk/WLAN%20Access%20Point%20Technikraum.html" class="internal-link">WLAN Access Point Technikraum</a>, <a href="../20%20Endpunkte/Netzwerk/WLAN%20Access%20Point%20Flur%20Decke.html" class="internal-link">WLAN Access Point Flur Decke</a>) sind Endpunkte und strahlen alle SSIDs aus. Welche SSID von welchem Access Point kommt, steht im Feld <code>access_points</code> der WLAN-Notiz. Jede SSID ist genau einem VLAN zugeordnet.</p>
+<p dir="auto">Eine WLAN-Notiz steht für eine SSID (einen Netzwerknamen), nicht für ein Gerät. Die beiden Access Points (<a class="internal-link" href="../20%20Endpunkte/Netzwerk/WLAN%20Access%20Point%20Technikraum.html">WLAN Access Point Technikraum</a>, <a class="internal-link" href="../20%20Endpunkte/Netzwerk/WLAN%20Access%20Point%20Flur%20Decke.html">WLAN Access Point Flur Decke</a>) sind Endpunkte und strahlen alle SSIDs aus. Welche SSID von welchem Access Point kommt, steht im Feld <code>access_points</code> der WLAN-Notiz. Jede SSID ist genau einem VLAN zugeordnet.</p>
 <h2 data-heading="Wie der Zugriff zwischen VLANs funktioniert" dir="auto" id="wie-der-zugriff-zwischen-vlans-funktioniert">Wie der Zugriff zwischen VLANs funktioniert</h2>
 <p dir="auto">VLANs sind nicht komplett voneinander abgeschottet. Das Gateway bzw. der Router (bei UniFi z. B. ein Cloud Gateway) leitet den Verkehr zwischen den VLANs weiter, und die Firewall legt fest, was erlaubt ist.</p>
 <ul>
@@ -64,8 +64,8 @@
 <li dir="auto"><strong>Gäste:</strong> Es gibt bewusst keine Regel von VLAN 30 nach VLAN 20.</li>
 </ol>
 <ul class="contains-task-list">
-<li data-task="" class="task-list-item" dir="auto"><input type="checkbox" class="task-list-item-checkbox" disabled=""><span class="tag">#check</span> Sind private Handys der Mitarbeiter im Büro-WLAN? Dann haben sie Zugriff auf alles, was dort freigegeben ist (auch das NAS). Wenn nur die Loxone-App gebraucht wird, reicht eventuell Remote Connect über Gast-WLAN oder Mobilfunk.</li>
-<li data-task="" class="task-list-item" dir="auto"><input type="checkbox" class="task-list-item-checkbox" disabled=""><span class="tag">#check</span> Weitere Loxone-Komponenten (Intercom-Video-Sprechstelle, Audioserver) brauchen eventuell zusätzliche Ports. Die genauen Ports stehen in der Loxone-Doku zur jeweiligen Komponente.</li>
+<li class="task-list-item" data-task="" dir="auto"><input class="task-list-item-checkbox" type="checkbox" disabled=""><span class="tag">#check</span> Sind private Handys der Mitarbeiter im Büro-WLAN? Dann haben sie Zugriff auf alles, was dort freigegeben ist (auch das NAS). Wenn nur die Loxone-App gebraucht wird, reicht eventuell Remote Connect über Gast-WLAN oder Mobilfunk.</li>
+<li class="task-list-item" data-task="" dir="auto"><input class="task-list-item-checkbox" type="checkbox" disabled=""><span class="tag">#check</span> Weitere Loxone-Komponenten (Intercom-Video-Sprechstelle, Audioserver) brauchen eventuell zusätzliche Ports. Die genauen Ports stehen in der Loxone-Doku zur jeweiligen Komponente.</li>
 </ul>
 <h2 data-heading="Smarte Hausgeräte (Backofen, Geschirrspüler)" dir="auto" id="smarte-hausgeräte-backofen-geschirrspüler">Smarte Hausgeräte (Backofen, Geschirrspüler)</h2>
 <p dir="auto">Diese Geräte brauchen dauerhaft eine Verbindung zur Hersteller-Cloud (z. B. Miele@home) und sind deshalb weniger vertrauenswürdig als die eigentliche Haustechnik.</p>
@@ -76,8 +76,8 @@
 <li dir="auto">
 <p><strong>Variante 2:</strong> mit ins Installations-VLAN. Das ist einfacher, aber dann braucht das ganze VLAN offenen Internetzugang.</p>
 </li>
-<li data-task="" class="task-list-item" dir="auto">
-<p><input type="checkbox" class="task-list-item-checkbox" disabled=""><span class="tag">#check</span> Entscheidung IoT-VLAN für smarte Hausgeräte</p>
+<li class="task-list-item" data-task="" dir="auto">
+<p><input class="task-list-item-checkbox" type="checkbox" disabled=""><span class="tag">#check</span> Entscheidung IoT-VLAN für smarte Hausgeräte</p>
 </li>
 </ul>
 <h2 data-heading="Switch und VLANs" dir="auto" id="switch-und-vlans">Switch und VLANs</h2>
